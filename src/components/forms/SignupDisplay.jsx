@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-const SigninDisplay = ( {onSubmit} ) => {
+const SignupDisplay = ( {onSubmit} ) => {
 
   const [username , setUsername] = useState("");
   const [email , setEmail] = useState("");
@@ -18,12 +18,12 @@ const SigninDisplay = ( {onSubmit} ) => {
   }
 
   return (
-    <form onSubmit={submitDetails}>
+    <form onSubmit={submitDetails} className="my-3">
+      <h2>Sign up</h2>
       <div className="form-group text-left">
         <label>Username</label>
         <input type="username" 
                 className="form-control" 
-                id="username" 
                 aria-describedby="usernameHelp" 
                 placeholder="Enter username"
                 value={username}
@@ -34,7 +34,6 @@ const SigninDisplay = ( {onSubmit} ) => {
         <label>Email address</label>
         <input type="email" 
                 className="form-control" 
-                id="email" 
                 aria-describedby="emailHelp" 
                 placeholder="Enter email"
                 value={email}
@@ -46,7 +45,6 @@ const SigninDisplay = ( {onSubmit} ) => {
         <label>Password</label>
         <input type="password" 
                 className="form-control" 
-                id="password" 
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -56,7 +54,6 @@ const SigninDisplay = ( {onSubmit} ) => {
         <label>Confirm Password</label>
         <input type="password" 
                 className="form-control" 
-                id="confirmPassword" 
                 placeholder="Confirm Password"
                 value={confPassword}
                 onChange={(e) => setConfPassword(e.target.value)}
@@ -68,4 +65,4 @@ const SigninDisplay = ( {onSubmit} ) => {
 
 };
 
-export default SigninDisplay;
+export default SignupDisplay;
