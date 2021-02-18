@@ -18,8 +18,8 @@ const SignupDisplay = ( {onSubmit} ) => {
   }
 
   return (
-    <form onSubmit={submitDetails} className="my-3">
-      <h2>Sign up</h2>
+    <form onSubmit={submitDetails} className="my-3 w-75 mx-auto">
+      <h2 className="text-center">Sign up</h2>
       <div className="form-group text-left">
         <label>Username</label>
         <input type="username" 

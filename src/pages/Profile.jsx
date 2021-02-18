@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts } from '../redux/posts/postsMiddleware';
 import Cookies from 'js-cookie';
 import ProfileDisplay from '../components/profile/ProfileDisplay';
 import EditProfile from '../components/profile/EditProfile';
+import PostsList from '../components/posts/PostsList';
 
 const Profile = ({ currentUser }) => {
   const { userId } = useParams();
@@ -10,6 +13,10 @@ const Profile = ({ currentUser }) => {
   const [editing, setEditing] = useState(false);
 
   const history = useHistory();
+  const posts = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(fetchPosts(currentUser.slug)), [dispatch, currentUser.slug]);
 
   if (!currentUser) {
     alert("Oh no! You cannot access this page now 😭 Please log in first.");
@@ -43,8 +50,8 @@ const Profile = ({ currentUser }) => {
   }
 
   return (
-    <>
-      <div className="my-2">
+    <div className="row my-3">
+      <div className="col-4">
         <ProfileDisplay data={profile} />
         {profile && profile.id === currentUser.id && editing && <EditProfile />}
         {profile && profile.id === currentUser.id && !editing && (
@@ -53,7 +60,10 @@ const Profile = ({ currentUser }) => {
           </button>
         )}
       </div>
-    </>
+      <div className="col-8">
+        <PostsList data={posts} />
+      </div>
+    </div>
   );
 };
 

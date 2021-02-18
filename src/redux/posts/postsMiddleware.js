@@ -78,7 +78,7 @@ export const fetchDeletePost = (postID) => {
 export const fetchPosts = (userSlug) => {
   return (dispatch) => {
     let postsURL =
-      `${API_URL_BASE}/posts?_sort=created_at:DESC`;
+      `${API_URL_BASE}/posts?_limit=20&_sort=created_at:DESC`;
     let countURL =
       `${API_URL_BASE}/posts/count?_sort=created_at:DESC`;
     if (userSlug) {

@@ -1,8 +1,9 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../redux/authentication/authMiddleware';
+import IOSSwitch from './ux/IOSSwitch';
 
-const Navbar = ({ currentUser }) => {
+const Navbar = ({ currentUser, switchTheme }) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -13,10 +14,10 @@ const Navbar = ({ currentUser }) => {
   };
 
   return (
-    <nav className="navbar navbar-light bg-light static-top py-2">
+    <nav className="navbar navbar-light static-top py-2">
 
       <div className="navbar nav-items mr-auto">
-        <Link to="/" className="navbar-brand">My Social Network</Link>
+        <Link to="/" className="font-weight-bold text-decoration-none">My Social Network</Link>
       </div>
 
       {!currentUser && (
@@ -34,13 +35,16 @@ const Navbar = ({ currentUser }) => {
               Log in
             </Link>
           </button>
+
+          <IOSSwitch onClick={switchTheme} />
         </>
       )}
 
       {currentUser && (
         <>
-          <Link to={"/users/" + currentUser.id}>{currentUser.username}</Link>
+          <Link to={"/users/" + currentUser.id} className="mx-2 text-decoration-none">{currentUser.username}</Link>
           <button onClick={logout} className="btn btn-danger mx-2">Log out</button>
+          <IOSSwitch onClick={switchTheme} />
         </>
       )}
 

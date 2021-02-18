@@ -15,8 +15,8 @@ const LoginDisplay = ( {onSubmit} ) => {
   }
 
   return (
-    <form onSubmit={submitDetails} className="my-3">
-      <h2>Log in</h2>
+    <form onSubmit={submitDetails} className="my-3 w-75 mx-auto">
+      <h2 className="text-center">Log in</h2>
       <div className="form-group text-left">
         <label>Username or Email</label>
         <input type="identifier" 
