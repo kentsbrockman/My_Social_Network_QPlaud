@@ -8,13 +8,13 @@ Voici un projet réalisé dans le cadre de la formation The Hacking Project Next
 
 - 4 pages dynamiques (Home, Signup, Login et Profile).
 - Un système d'authentification des utilisateurs via JWT et usage d'un cookie.
-- Une jonction avec [cette API](https://thp-strapi-social-network.herokuapp.com/) en ligne pour la gestion de la base de données relatives aux utilisateurs et aux posts.
+- Une jonction avec [cette API](https://thp-strapi-social-network.herokuapp.com/) en ligne pour la gestion de la base de données relative aux utilisateurs et aux posts. Merci encore à notre comparse [Charlotte](https://github.com/cha-fa) pour avoir déployé l'API en deux-deux !
 - Des composants React dynamiques qui actualisent les contenus de la home page et de la page profil.
 - Un mode jour/nuit pour la cosmétique, qui change intégralement l'interface.
 
 ## Accès
 
-- Site disponible temporairement à [cette adresse](#).
+- Site disponible temporairement à [cette adresse](https://my-social-network-qplaud.vercel.app/).
 - Alternative : chargement du code source sur votre appareil :
   - Cloner / télécharger le repo.
   - `$ npm install`.
