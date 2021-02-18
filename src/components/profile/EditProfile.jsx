@@ -44,7 +44,7 @@ const EditProfile = () => {
           />
         </div>
         <div>
-          <label for="description">description :</label>
+          <label for="description">Description</label>
           <textarea
             type="text"
             required

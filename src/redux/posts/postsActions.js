@@ -3,8 +3,11 @@ import {
   FETCH_POSTS_SUCCESS,
   FETCH_POSTS_ERROR,
   SET_POSTS_COUNT,
+  ADD_POST_REQUEST,
   ADD_POST_SUCCESS,
   ADD_POST_ERROR,
+  EDIT_POST,
+  DELETE_POST,
 } from "./postsTypes";
 
 export const fetchPostsRequest = () => {
@@ -34,6 +37,12 @@ export const setPostsCount = (count) => {
   };
 };
 
+export const addPostRequest = () => {
+  return {
+    type: ADD_POST_REQUEST,
+  };
+};
+
 export const addPostSuccess = (post) => {
   return {
     type: ADD_POST_SUCCESS,
@@ -45,5 +54,19 @@ export const addPostError = (error) => {
   return {
     type: ADD_POST_ERROR,
     error,
+  };
+};
+
+export const editPost = (post) => {
+  return {
+    type: EDIT_POST,
+    post,
+  };
+};
+
+export const deletePost = (post) => {
+  return {
+    type: DELETE_POST,
+    post,
   };
 };

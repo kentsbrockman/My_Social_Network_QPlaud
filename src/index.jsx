@@ -6,8 +6,6 @@ import store from './redux/store';
 
 const Root = () => {
 
-  console.log(store);
-
   return (
     <React.StrictMode>
       <Provider store={store}>
@@ -15,6 +13,7 @@ const Root = () => {
       </Provider>
     </React.StrictMode>
   );
+
 }
 
 ReactDOM.render(<Root />, document.getElementById('root'));

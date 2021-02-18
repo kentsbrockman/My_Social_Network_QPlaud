@@ -1,17 +1,18 @@
 import Cookies from "js-cookie";
 import {
-  registerFailure,
   registerSuccess,
-  loginFailure,
+  registerFailure,
   loginSuccess,
+  loginFailure,
   logout,
   editProfile,
-  retrieveUser,
 } from "./authActions";
+
+const API_URL_BASE = "https://thp-strapi-social-network.herokuapp.com";
 
 export const registerFetch = (userData) => {
   return (dispatch) => {
-    const registerURL = "http://localhost:1337/auth/local/register";
+    const registerURL = `${API_URL_BASE}/auth/local/register`;
 
     fetch(registerURL, {
       method: "post",
@@ -20,22 +21,22 @@ export const registerFetch = (userData) => {
       },
       body: JSON.stringify(userData),
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.jwt) {
-          Cookies.set("token", response.jwt);
-          dispatch(registerSuccess(response.user, response.jwt));
-          console.log("Registration successful, a new user has been created 🔥");
-        } else {
-          dispatch(registerFailure(response.message[0].messages[0].message));
-        }
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.jwt) {
+        Cookies.set("token", data.jwt);
+        dispatch(registerSuccess(data.user, data.jwt));
+        console.log("Registration successful, a new user has been created 🔥");
+      } else {
+        dispatch(registerFailure(data.message[0].messages[0].message));
+      }
+    });
   };
 };
 
 export const loginFetch = (userData) => {
   return (dispatch) => {
-    const loginURL = "http://localhost:1337/auth/local";
+    const loginURL = `${API_URL_BASE}/auth/local`;
 
     fetch(loginURL, {
       method: "post",
@@ -44,22 +45,22 @@ export const loginFetch = (userData) => {
       },
       body: JSON.stringify(userData),
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.jwt) {
-          Cookies.set("token", response.jwt);
-          dispatch(loginSuccess(response.user, response.jwt));
-          console.log("Login successful, the user is now connected 🔥");
-        } else {
-          dispatch(loginFailure(response.message[0].messages[0].message));
-        }
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.jwt) {
+        Cookies.set("token", data.jwt);
+        dispatch(loginSuccess(data.user, data.jwt));
+        console.log("Login successful, the user is now connected 🔥");
+      } else {
+        dispatch(loginFailure(data.message[0].messages[0].message));
+      }
+    });
   };
 };
 
 export const fetchEditProfile = (userData) => {
   return (dispatch) => {
-    const loginURL = "http://localhost:1337/users/me";
+    const loginURL = `${API_URL_BASE}/users/me`;
 
     fetch(loginURL, {
       method: "put",
@@ -69,13 +70,13 @@ export const fetchEditProfile = (userData) => {
       },
       body: JSON.stringify(userData),
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response) {
-          dispatch(editProfile(response));
-          console.log("The profile edition has been successful 🔥");
-        }
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        dispatch(editProfile(data));
+        console.log("The profile edition has been successful 🔥");
+      }
+    });
   };
 };
 
@@ -84,23 +85,5 @@ export const userLogout = () => {
     Cookies.remove("token");
     dispatch(logout());
     console.log("The user was successfully logged out, hope we'll catch up soon ❤️");
-  };
-};
-
-export const fetchRetrieveUser = (userID) => {
-  return (dispatch) => {
-    fetch(`http://localhost:1337/users/${userID}`, {
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response) {
-          dispatch(retrieveUser(response, Cookies.get("token")));
-        }
-      });
   };
 };

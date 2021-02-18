@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { loginFetch } from '../redux/authentication/authMiddleware';
-import { useHistory } from 'react-router-dom';
-import LoginDisplay from '../components/forms/LoginDisplay';
+import { Redirect, useHistory } from 'react-router-dom';
+import LoginDisplay from '../components/auth/LoginDisplay';
 
-const Login = () => {
+const Login = ({ currentUser }) => {
 
   const dispatch = useDispatch();
   const loginInfo = useSelector((state) => state.auth);
@@ -13,6 +13,11 @@ const Login = () => {
     dispatch(loginFetch(userCredentials));
     history.push('/');
   };
+
+  if (currentUser) {
+    alert("You are already logged in dear user 😁");
+    return <Redirect to="/" />
+  }
 
   return (
     <>

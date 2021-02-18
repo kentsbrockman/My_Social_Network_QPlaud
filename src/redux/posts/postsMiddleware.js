@@ -1,21 +1,89 @@
 import {
-  fetchPostsError,
+  addPostRequest,
+  addPostSuccess,
+  addPostError,
+  editPost,
+  deletePost,
   fetchPostsRequest,
   fetchPostsSuccess,
+  fetchPostsError,
   setPostsCount,
-  addPostError,
-  addPostSuccess,
 } from "./postsActions";
 
 import Cookies from "js-cookie";
 
-export const fetchPosts = (userID) => {
+const API_URL_BASE = "https://thp-strapi-social-network.herokuapp.com"
+
+export const addPost = (postData) => {
+  console.log(postData);
   return (dispatch) => {
-    let postsURL = "http://localhost:1337/posts?_sort=created_at:DESC";
-    let countURL = "http://localhost:1337/posts/count?_sort=created_at:DESC";
-    if (userID) {
-      postsURL = `http://localhost:1337/posts?_sort=created_at:DESC&user.id=${userID}`;
-      countURL = `http://localhost:1337/posts/count?_sort=created_at:DESC&user.id=${userID}`;
+    const addURL = `${API_URL_BASE}/posts`;
+    dispatch(addPostRequest());
+    fetch(addURL, {
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (!response.error) {
+          dispatch(addPostSuccess(response));
+        } else {
+          dispatch(addPostError(response.message[0].messages[0].message));
+        }
+      });
+  };
+};
+
+export const fetchEditPost = (text, postID) => {
+  return (dispatch) => {
+    fetch(`${API_URL_BASE}/posts/${postID}`, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: text }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response) {
+          dispatch(editPost(response));
+        }
+      });
+  };
+};
+
+export const fetchDeletePost = (postID) => {
+  return (dispatch) => {
+    fetch(`${API_URL_BASE}/posts/${postID}`, {
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response) {
+          dispatch(deletePost(response));
+        }
+      });
+  };
+};
+
+export const fetchPosts = (userSlug) => {
+  return (dispatch) => {
+    let postsURL =
+      `${API_URL_BASE}/posts?_sort=created_at:DESC`;
+    let countURL =
+      `${API_URL_BASE}/posts/count?_sort=created_at:DESC`;
+    if (userSlug) {
+      postsURL = `${API_URL_BASE}/posts?_sort=created_at:DESC&user.slug=${userSlug}`;
+      countURL = `${API_URL_BASE}/posts/count?_sort=created_at:DESC&user.slug=${userSlug}`;
     }
 
     dispatch(fetchPostsRequest());
@@ -35,28 +103,6 @@ export const fetchPosts = (userID) => {
           dispatch(fetchPostsSuccess(response));
         } else {
           dispatch(fetchPostsError(response.error));
-        }
-      });
-  };
-};
-
-export const addPost = (postData) => {
-  return (dispatch) => {
-    const addURL = "http://localhost:1337/posts";
-    fetch(addURL, {
-      method: "post",
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (!response.error) {
-          dispatch(addPostSuccess(response));
-        } else {
-          dispatch(addPostError(response.message[0].messages[0].message));
         }
       });
   };

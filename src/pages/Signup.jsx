@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { registerFetch } from '../redux/authentication/authMiddleware';
-import { useHistory } from 'react-router-dom';
-import SignupDisplay from '../components/forms/SignupDisplay';
+import { useHistory, Redirect } from 'react-router-dom';
+import SignupDisplay from '../components/auth/SignupDisplay';
 
-const Signup = () => {
+const Signup = ({ currentUser }) => {
 
   const dispatch = useDispatch();
   const register = useSelector((state) => state);
@@ -17,6 +17,11 @@ const Signup = () => {
       console.log ("Signup - Passwords don't match")
     }
   };
+
+  if (currentUser) {
+    alert("You are already logged in dear user 😁");
+    return <Redirect to="/" />
+  }
 
   return (
     <>

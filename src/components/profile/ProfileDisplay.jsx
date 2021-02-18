@@ -1,19 +1,15 @@
 const ProfileDisplay = ( {data} ) => {
 
   return (
-    <div className="Profile">
-      Profile page
-      {data && (
-        <ul>
-          <li>id: {data.id}</li>
-          <li>username: {data.username}</li>
-          <li>email: {data.email}</li>
-          {data.description && (
-            <li>description: {data.description}</li>
-          )}
-        </ul>
+    <>
+      <h3>Profile page</h3>
+      <p>Id: {data.id}</p>
+      <p>Username: {data.username}</p>
+      <p>Email: {data.email}</p>
+      {data.description && (
+        <p>description: {data.description}</p>
       )}
-    </div>
+    </>
   );
 };
 
