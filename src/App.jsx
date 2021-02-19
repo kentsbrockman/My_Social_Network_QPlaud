@@ -14,16 +14,15 @@ import Profile from './pages/Profile';
 const App = () => {
 
   const currentUser = useSelector((state) => state.auth.user);
+  console.log(currentUser);
 
-  const [theme, setTheme] = useState(localStorage.getItem("MY_SOCIAL_NETWORK_THEME"));
+  const [theme, setTheme] = useState("light");
 
   const themeToggler = () => {
     if (theme === "light") {
       setTheme("dark")
-      localStorage.setItem("MY_SOCIAL_NETWORK_THEME", "dark");
     } else {
       setTheme("light")
-      localStorage.setItem("MY_SOCIAL_NETWORK_THEME", "light");
     }
   }
 
