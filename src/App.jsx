@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import Footer from './components/layouts/Footer';
 
 const App = () => {
 
@@ -48,6 +49,7 @@ const App = () => {
             <Route component={NotFound} />
           </Switch>
         </main>
+        <Footer />
       </ThemeProvider>
     </Router>
   );

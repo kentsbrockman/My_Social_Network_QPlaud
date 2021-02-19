@@ -17,7 +17,10 @@ const Profile = ({ currentUser }) => {
   const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchPosts(userId)), [dispatch, userId]);
+  useEffect(() => {
+    dispatch(fetchPosts(userId));
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   if (!currentUser) {
     alert("Oh no! You cannot access this page now 😭 Please log in first.");

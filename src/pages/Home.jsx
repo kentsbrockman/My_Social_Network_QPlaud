@@ -16,7 +16,16 @@ const Home = ({ currentUser }) => {
     dispatch(fetchPosts());
   };
 
-  useEffect(() => dispatch(fetchPosts()), [dispatch]);
+  useEffect(() => {
+    dispatch(fetchPosts());
+    const interval = setInterval(() => {
+      dispatch(fetchPosts())
+    }, 60*1000);
+    return () => {
+      clearInterval(interval)
+    };
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!currentUser) {
     return (
