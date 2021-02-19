@@ -12,12 +12,12 @@ import {
 
 import Cookies from "js-cookie";
 
-const API_URL_BASE = "https://thp-strapi-social-network.herokuapp.com"
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const addPost = (postData) => {
   console.log(postData);
   return (dispatch) => {
-    const addURL = `${API_URL_BASE}/posts`;
+    const addURL = `${API_BASE_URL}/posts`;
     dispatch(addPostRequest());
     fetch(addURL, {
       method: "post",
@@ -40,7 +40,7 @@ export const addPost = (postData) => {
 
 export const fetchEditPost = (text, postID) => {
   return (dispatch) => {
-    fetch(`${API_URL_BASE}/posts/${postID}`, {
+    fetch(`${API_BASE_URL}/posts/${postID}`, {
       method: "put",
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
@@ -59,7 +59,7 @@ export const fetchEditPost = (text, postID) => {
 
 export const fetchDeletePost = (postID) => {
   return (dispatch) => {
-    fetch(`${API_URL_BASE}/posts/${postID}`, {
+    fetch(`${API_BASE_URL}/posts/${postID}`, {
       method: "delete",
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
@@ -75,15 +75,15 @@ export const fetchDeletePost = (postID) => {
   };
 };
 
-export const fetchPosts = (userSlug) => {
+export const fetchPosts = (userId) => {
   return (dispatch) => {
     let postsURL =
-      `${API_URL_BASE}/posts?_limit=20&_sort=created_at:DESC`;
+      `${API_BASE_URL}/posts?_limit=20&_sort=created_at:DESC`;
     let countURL =
-      `${API_URL_BASE}/posts/count?_sort=created_at:DESC`;
-    if (userSlug) {
-      postsURL = `${API_URL_BASE}/posts?_sort=created_at:DESC&user.slug=${userSlug}`;
-      countURL = `${API_URL_BASE}/posts/count?_sort=created_at:DESC&user.slug=${userSlug}`;
+      `${API_BASE_URL}/posts/count`;
+    if (userId) {
+      postsURL = `${API_BASE_URL}/posts?_sort=created_at:DESC&user.id=${userId}`;
+      countURL = `${API_BASE_URL}/posts/count?_sort=created_at:DESC&user.id=${userId}`;
     }
 
     dispatch(fetchPostsRequest());

@@ -8,11 +8,11 @@ import {
   editProfile,
 } from "./authActions";
 
-const API_URL_BASE = "https://thp-strapi-social-network.herokuapp.com";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const registerFetch = (userData) => {
   return (dispatch) => {
-    const registerURL = `${API_URL_BASE}/auth/local/register`;
+    const registerURL = `${API_BASE_URL}/auth/local/register`;
 
     fetch(registerURL, {
       method: "post",
@@ -36,7 +36,7 @@ export const registerFetch = (userData) => {
 
 export const loginFetch = (userData) => {
   return (dispatch) => {
-    const loginURL = `${API_URL_BASE}/auth/local`;
+    const loginURL = `${API_BASE_URL}/auth/local`;
 
     fetch(loginURL, {
       method: "post",
@@ -60,7 +60,7 @@ export const loginFetch = (userData) => {
 
 export const fetchEditProfile = (userData) => {
   return (dispatch) => {
-    const loginURL = `${API_URL_BASE}/users/me`;
+    const loginURL = `${API_BASE_URL}/users/me`;
 
     fetch(loginURL, {
       method: "put",

@@ -10,11 +10,11 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 
 const App = () => {
 
   const currentUser = useSelector((state) => state.auth.user);
-  console.log(currentUser);
 
   const [theme, setTheme] = useState("light");
 
@@ -45,6 +45,7 @@ const App = () => {
             <Route path="/users/:userId">
               <Profile currentUser={currentUser} />
             </Route>
+            <Route component={NotFound} />
           </Switch>
         </main>
       </ThemeProvider>

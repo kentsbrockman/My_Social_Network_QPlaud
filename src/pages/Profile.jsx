@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../redux/posts/postsMiddleware';
+import { fetchEditProfile } from '../redux/authentication/authMiddleware';
 import Cookies from 'js-cookie';
 import ProfileDisplay from '../components/profile/ProfileDisplay';
 import EditProfile from '../components/profile/EditProfile';
@@ -16,19 +17,13 @@ const Profile = ({ currentUser }) => {
   const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchPosts(currentUser.slug)), [dispatch, currentUser.slug]);
+  useEffect(() => dispatch(fetchPosts(userId)), [dispatch, userId]);
 
   if (!currentUser) {
     alert("Oh no! You cannot access this page now 😭 Please log in first.");
     history.push("/login");
   } else {
-    let API_BASE_URL;
-
-    if (!userId) {
-      API_BASE_URL = `https://thp-strapi-social-network.herokuapp.com/users/me`;
-    } else {
-      API_BASE_URL = `https://thp-strapi-social-network.herokuapp.com/users/${userId}`;
-    };
+    const API_BASE_URL = `https://thp-strapi-social-network.herokuapp.com/users/${userId}`;
     
     const token = Cookies.get('token');
 
@@ -43,6 +38,11 @@ const Profile = ({ currentUser }) => {
     .then(data => setProfile(data));
   };
 
+  const updateProfile = (newDetails) => {
+    dispatch(fetchEditProfile(newDetails));
+    setEditing(editing);
+  }
+
   if (!profile) {
     return (
       <p>Loading</p>
@@ -53,12 +53,7 @@ const Profile = ({ currentUser }) => {
     <div className="row my-3">
       <div className="col-4">
         <ProfileDisplay data={profile} />
-        {profile && profile.id === currentUser.id && editing && <EditProfile />}
-        {profile && profile.id === currentUser.id && !editing && (
-          <button className="btn btn-primary mb-2" onClick={() => setEditing(!editing)}>
-            Edit profile
-          </button>
-        )}
+        <EditProfile onSubmit={updateProfile} />
       </div>
       <div className="col-8">
         <PostsList data={posts} />
