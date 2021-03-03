@@ -1,25 +1,24 @@
-# My Social Network
+# Social Network in React
 
-Voici un projet réalisé dans le cadre de la formation The Hacking Project Next : un mini réseau social fonctionnel, permettant de poster des contenus et d'observer ceux des autres utilisateurs de la plateforme.
+Here is another project carried out as part of The Hacking Project "Next" training: a mini functional social network, allowing to post contents and to observe those of other users of the platform.
 
 ---
 
-## Fonctionnalités 
+## Features 
 
-- 4 pages dynamiques (Home, Signup, Login et Profile).
-- Un système d'authentification des utilisateurs via JWT et usage d'un cookie.
-- Une jonction avec [cette API](https://thp-strapi-social-network.herokuapp.com/) en ligne pour la gestion de la base de données relative aux utilisateurs et aux posts. Merci encore à notre comparse [Charlotte](https://github.com/cha-fa) pour avoir déployé l'API en deux-deux !
-- Des composants React dynamiques qui actualisent les contenus de la home page et de la page profil.
-- Un mode jour/nuit pour la cosmétique, qui change intégralement l'interface.
+- 4 dynamic pages (Home, Signup, Login and Profile).
+- A user authentication system via JWT and use of a cookie.
+- A junction with [this API](https://thp-strapi-social-network.herokuapp.com/) for the data management related to users and posts. Thank you so much to my training mate [Charlotte](https://github.com/cha-fa) for switfly deploying this API!
+- Dynamic React components that update the contents of the home page and the profile page.
+- A day/night mode for cosmetic purpose, which completely changes the interface.
 
-## Accès
+## Access
 
-- Site disponible temporairement à [cette adresse](https://my-social-network-qplaud.vercel.app/).
-- Alternative : chargement du code source sur votre appareil :
-  - Cloner / télécharger le repo.
-  - `$ npm install`.
-  - `$ npm start`.
-
+- Site temporarily available at [this address](https://my-social-network-qplaud.vercel.app/).
+- Alternative: loading the source code on your machine:
+  - Clone / download the repo.
+  - $ npm install.
+  - $ npm start`.
 
 ---
 
