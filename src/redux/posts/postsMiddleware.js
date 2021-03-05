@@ -12,7 +12,7 @@ import {
 
 import Cookies from "js-cookie";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = "https://thp-strapi-social-network.herokuapp.com";
 
 export const addPost = (postData) => {
   console.log(postData);
